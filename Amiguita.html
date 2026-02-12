@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín - Amiguita ❤️</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        #root {
+            width: 100vw;
+            height: auto;
+            min-height: 100vh;
+        }
+
+        .book-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .page {
+            width: 90%;
+            max-width: 900px;
+            min-height: 90vh;
+            border-radius: 30px;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+            overflow: hidden;
+            animation: pageSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes pageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .page-content {
+            max-width: 700px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .page h1 {
+            font-size: 4em;
+            margin-bottom: 30px;
+            font-weight: 900;
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.5);
+            animation: titlePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes titlePop {
+            0% { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        .page p {
+            font-size: 1.4em;
+            line-height: 1.9;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            animation: textFade 1s ease forwards;
+            opacity: 0;
+        }
+
+        .page p:nth-child(2) { animation-delay: 0.3s; }
+        .page p:nth-child(3) { animation-delay: 0.5s; }
+        .page p:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes textFade {
+            to { opacity: 1; }
+        }
+
+        /* PORTADA */
+        .cover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+        }
+
+        .cover-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 2em;
+            animation: floatHeart 8s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(360deg); }
+        }
+
+        .cover h1 {
+            font-size: 5em;
+            background: linear-gradient(45deg, #fff, #ffd700, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* AMONG US */
+        .among-us-page {
+            background: linear-gradient(180deg, #0a0e27 0%, #16213e 50%, #1a1a2e 100%);
+            color: white;
+        }
+
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
+            animation: shoot 3s linear infinite;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-300px) translateY(300px);
+                opacity: 0;
+            }
+        }
+
+        .crewmate {
+            position: absolute;
+            font-size: 4em;
+            animation: floatCrewmate 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255,71,87,0.6));
+        }
+
+        @keyframes floatCrewmate {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .among-us-page h1 {
+            color: #ff4757;
+            font-size: 4.5em;
+            text-shadow: 0 0 30px rgba(255,71,87,0.8);
+        }
+
+        /* CALL OF DUTY */
+        .cod-page {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 50%, #1a252f 100%);
+            color: #ecf0f1;
+        }
+
+        .explosions-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .explosion {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            animation: explode 2s ease-out infinite;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+                background: radial-gradient(circle, #ff6b35 0%, #f7931e 30%, #c1272d 60%, transparent 100%);
+            }
+            50% {
+                opacity: 0.8;
+                background: radial-gradient(circle, #ff6b35 0%, #f7931e 30%, rgba(193,39,45,0.5) 60%, transparent 100%);
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+                background: radial-gradient(circle, transparent 0%, transparent 100%);
+            }
+        }
+
+        .bullet-hole {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+            animation: bulletImpact 0.2s ease;
+        }
+
+        @keyframes bulletImpact {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.5); }
+            100% { transform: scale(1); }
+        }
+
+        .crosshair {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 2px solid #e74c3c;
+            border-radius: 50%;
+            animation: crosshairPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(231,76,60,0.6);
+        }
+
+        .crosshair::before, .crosshair::after {
+            content: '';
+            position: absolute;
+            background: #e74c3c;
+        }
+
+        .crosshair::before {
+            width: 2px;
+            height: 20px;
+            left: 50%;
+            top: -10px;
+            transform: translateX(-50%);
+        }
+
+        .crosshair::after {
+            width: 20px;
+            height: 2px;
+            top: 50%;
+            left: -10px;
+            transform: translateY(-50%);
+        }
+
+        @keyframes crosshairPulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .cod-page h1 {
+            color: #e74c3c;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(231,76,60,0.8);
+            font-size: 4em;
+        }
+
+        /* INSTAGRAM */
+        .instagram-page {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #feca57 100%);
+            color: white;
+            animation: gradientShift 10s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .chat-bubbles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .chat-bubble {
+            position: absolute;
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 2em;
+            animation: bubbleFloat 6s ease-in-out infinite;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-40px) rotate(5deg); opacity: 1; }
+        }
+
+        .heart-rain {
+            position: absolute;
+            font-size: 2.5em;
+            animation: rainFall 4s linear infinite;
+        }
+
+        @keyframes rainFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .instagram-page h1 {
+            font-size: 4.5em;
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d, #f56040);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: instagramShimmer 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes instagramShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* MINECRAFT */
+        .minecraft-page {
+            background: linear-gradient(180deg, #87CEEB 0%, #98D8C8 40%, #90EE90 70%, #6DB86D 100%);
+            color: #2d2d2d;
+        }
+
+        .minecraft-world {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .minecraft-cloud {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: cloudFloat 20s linear infinite;
+        }
+
+        @keyframes cloudFloat {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        .minecraft-block {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            animation: blockFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes blockFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .minecraft-tree {
+            position: absolute;
+            animation: treeGrow 3s ease-in-out infinite;
+        }
+
+        @keyframes treeGrow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .tree-trunk {
+            width: 30px;
+            height: 60px;
+            background: #8B4513;
+            margin: 0 auto;
+            border: 2px solid #654321;
+        }
+
+        .tree-leaves {
+            width: 80px;
+            height: 80px;
+            background: #228B22;
+            margin: -10px auto 0;
+            border: 2px solid #1a6b1a;
+            position: relative;
+        }
+
+        .tree-leaves::before, .tree-leaves::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #228B22;
+            border: 2px solid #1a6b1a;
+        }
+
+        .tree-leaves::before {
+            top: -30px;
+            left: 10px;
+        }
+
+        .tree-leaves::after {
+            top: -15px;
+            left: 25px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .minecraft-page h1 {
+            color: #8B4513;
+            font-family: 'Courier New', monospace;
+            font-weight: 900;
+            font-size: 4.5em;
+            text-shadow: 4px 4px 0 #654321;
+            letter-spacing: 3px;
+        }
+
+        .minecraft-photo {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+            border: 8px solid #8B4513;
+            box-shadow: 
+                0 0 0 4px #654321,
+                0 20px 40px rgba(0,0,0,0.4),
+                inset 0 0 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+            color: #555;
+            position: relative;
+            animation: photoGlow 3s ease-in-out infinite;
+            padding: 0;
+        }
+
+        @keyframes photoGlow {
+            0%, 100% { box-shadow: 0 0 0 4px #654321, 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(0,0,0,0.2); }
+            50% { box-shadow: 0 0 0 4px #654321, 0 20px 60px rgba(139,69,19,0.6), inset 0 0 20px rgba(0,0,0,0.2), 0 0 30px rgba(255,215,0,0.4); }
+        }
+
+        .minecraft-photo img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* NAVEGACIÓN */
+        .navigation {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 25px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            padding: 18px 40px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .nav-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .nav-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-button:disabled:hover {
+            transform: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .prev-button {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        .page-indicator {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1em;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                padding: 30px 20px;
+                min-height: 85vh;
+            }
+
+            .page h1 {
+                font-size: 2.5em;
+            }
+
+            .page p {
+                font-size: 1.1em;
+            }
+
+            .cover h1 {
+                font-size: 3em;
+            }
+
+            .navigation {
+                /* make navigation flow after content on small screens */
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                justify-content: center;
+                gap: 12px;
+                padding: 12px 16px;
+                margin-top: 18px;
+                box-sizing: border-box;
+            }
+
+            /* on small screens make the page indicator faint by default
+               and only show fully for a short moment when pages change */
+            .page-indicator {
+                top: 16px;
+                right: 12px;
+                padding: 8px 14px;
+                font-size: 0.95em;
+                opacity: 0.14;
+                transition: opacity 0.35s ease, transform 0.35s ease;
+                pointer-events: none;
+                transform: translateY(-6px);
+            }
+
+            .page-indicator.show {
+                opacity: 0.95;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .nav-button {
+                padding: 14px 28px;
+                font-size: 1em;
+            }
+
+            .minecraft-photo {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Componente de estrellas parpadeantes
+        function Stars() {
+            const stars = Array.from({ length: 150 }, (_, i) => ({
+                id: i,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                delay: `${Math.random() * 3}s`,
+                size: Math.random() > 0.5 ? '3px' : '2px'
+            }));
+
+            const shootingStars = Array.from({ length: 3 }, (_, i) => ({
+                id: i,
+                top: `${Math.random() * 30}%`,
+                left: `${80 + Math.random() * 20}%`,
+                delay: `${i * 4}s`
+            }));
+
+            return (
+                <div className="stars-container">
+                    {stars.map(star => (
+                        <div
+                            key={star.id}
+                            className="star"
+                            style={{
+                                top: star.top,
+                                left: star.left,
+                                animationDelay: star.delay,
+                                width: star.size,
+                                height: star.size
+                            }}
+                        />
+                    ))}
+                    {shootingStars.map(star => (
+                        <div
+                            key={`shooting-${star.id}`}
+                            className="shooting-star"
+                            style={{
+                                top: star.top,
+                                left: star.left,
+                                animationDelay: star.delay
+                            }}
+                        />
+                    ))}
+                    <div className="crewmate" style={{top: '15%', right: '10%'}}>🧑‍🚀</div>
+                    <div className="crewmate" style={{bottom: '20%', left: '8%', animationDelay: '1s'}}>👨‍🚀</div>
+                </div>
+            );
+        }
+
+        // Componente de explosiones
+        function Explosions() {
+            const explosions = Array.from({ length: 8 }, (_, i) => ({
+                id: i,
+                top: `${10 + Math.random() * 80}%`,
+                left: `${10 + Math.random() * 80}%`,
+                delay: `${i * 0.8}s`
+            }));
+
+            const bullets = Array.from({ length: 20 }, (_, i) => ({
+                id: i,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                delay: `${Math.random() * 2}s`
+            }));
+
+            return (
+                <div className="explosions-container">
+                    {explosions.map(exp => (
+                        <div
+                            key={exp.id}
+                            className="explosion"
+                            style={{
+                                top: exp.top,
+                                left: exp.left,
+                                animationDelay: exp.delay
+                            }}
+                        />
+                    ))}
+                    {bullets.map(bullet => (
+                        <div
+                            key={`bullet-${bullet.id}`}
+                            className="bullet-hole"
+                            style={{
+                                top: bullet.top,
+                                left: bullet.left,
+                                animationDelay: bullet.delay
+                            }}
+                        />
+                    ))}
+                    <div className="crosshair" style={{top: '30%', left: '20%'}} />
+                    <div className="crosshair" style={{top: '60%', right: '25%', animationDelay: '1s'}} />
+                </div>
+            );
+        }
+
+        // Componente de burbujas de chat
+        function ChatBubbles() {
+            const bubbles = [
+                { emoji: '💬', top: '15%', left: '10%', delay: '0s' },
+                { emoji: '😂', top: '25%', right: '15%', delay: '1s' },
+                { emoji: '💕', top: '70%', left: '12%', delay: '2s' },
+                { emoji: '📱', top: '60%', right: '18%', delay: '1.5s' },
+                { emoji: '✨', top: '40%', left: '8%', delay: '0.5s' }
+            ];
+
+            const hearts = Array.from({ length: 15 }, (_, i) => ({
+                id: i,
+                left: `${Math.random() * 100}%`,
+                delay: `${Math.random() * 4}s`,
+                duration: `${4 + Math.random() * 3}s`
+            }));
+
+            return (
+                <div className="chat-bubbles-container">
+                    {bubbles.map((bubble, i) => (
+                        <div
+                            key={i}
+                            className="chat-bubble"
+                            style={{
+                                top: bubble.top,
+                                left: bubble.left,
+                                right: bubble.right,
+                                animationDelay: bubble.delay
+                            }}
+                        >
+                            {bubble.emoji}
+                        </div>
+                    ))}
+                    {hearts.map(heart => (
+                        <div
+                            key={`heart-${heart.id}`}
+                            className="heart-rain"
+                            style={{
+                                left: heart.left,
+                                animationDelay: heart.delay,
+                                animationDuration: heart.duration
+                            }}
+                        >
+                            ❤️
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        // Componente del mundo de Minecraft
+        function MinecraftWorld() {
+            const clouds = Array.from({ length: 6 }, (_, i) => ({
+                id: i,
+                top: `${10 + i * 12}%`,
+                delay: `${i * 3}s`,
+                duration: `${20 + Math.random() * 10}s`
+            }));
+
+            const blocks = [
+                { emoji: '🟫', top: '20%', right: '15%', delay: '0s' },
+                { emoji: '🟩', top: '75%', left: '10%', delay: '1s' },
+                { emoji: '⬛', top: '65%', right: '12%', delay: '2s' },
+                { emoji: '🟦', top: '30%', left: '8%', delay: '1.5s' }
+            ];
+
+            const trees = [
+                { top: '68%', left: '15%', delay: '0s' },
+                { top: '68%', right: '20%', delay: '0.5s' },
+                { top: '68%', left: '35%', delay: '1s' }
+            ];
+
+            return (
+                <div className="minecraft-world">
+                    {clouds.map(cloud => (
+                        <div
+                            key={cloud.id}
+                            className="minecraft-cloud"
+                            style={{
+                                top: cloud.top,
+                                animationDelay: cloud.delay,
+                                animationDuration: cloud.duration
+                            }}
+                        />
+                    ))}
+                    {blocks.map((block, i) => (
+                        <div
+                            key={i}
+                            className="minecraft-block"
+                            style={{
+                                top: block.top,
+                                left: block.left,
+                                right: block.right,
+                                animationDelay: block.delay,
+                                fontSize: '2.5em'
+                            }}
+                        >
+                            {block.emoji}
+                        </div>
+                    ))}
+                    {trees.map((tree, i) => (
+                        <div
+                            key={i}
+                            className="minecraft-tree"
+                            style={{
+                                top: tree.top,
+                                left: tree.left,
+                                right: tree.right,
+                                animationDelay: tree.delay,
+                                position: 'absolute'
+                            }}
+                        >
+                            <div className="tree-leaves"></div>
+                            <div className="tree-trunk"></div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        // Componente de partículas de corazones para la portada
+        function CoverParticles() {
+            const hearts = Array.from({ length: 20 }, (_, i) => ({
+                id: i,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                delay: `${Math.random() * 8}s`,
+                duration: `${8 + Math.random() * 4}s`
+            }));
+
+            return (
+                <div className="cover-particles">
+                    {hearts.map(heart => (
+                        <div
+                            key={heart.id}
+                            className="heart-particle"
+                            style={{
+                                top: heart.top,
+                                left: heart.left,
+                                animationDelay: heart.delay,
+                                animationDuration: heart.duration
+                            }}
+                        >
+                            ✨
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function App() {
+            const [currentPage, setCurrentPage] = useState(0);
+            const [showIndicator, setShowIndicator] = useState(true);
+
+            const pages = [
+                {
+                    id: 'cover',
+                    className: 'cover',
+                    background: <CoverParticles />,
+                    content: (
+                        <>
+                            <h1>Feliz San Valentín</h1>
+                            <p className="subtitle" style={{fontSize: '1.8em', fontWeight: '600'}}>Para mi mejor amiga, Yanes</p>
+                            <p style={{marginTop: '40px', fontSize: '1.3em'}}>
+                                Ha pasado casi un año, desde que tuve contacto contigo, estoy tan agradecido que seas mi amiga
+                                Por lo que, creé esta página para recordar todos los momentos increíbles que hemos compartido juntos, y para celebrar nuestra amistad en este día tan especial.
+                            </p>
+                            <p style={{fontSize: '1.2em', marginTop: '30px', opacity: '0.9'}}>
+                                ¡Desliza para revivir nuestras aventuras! 👉
+                            </p>
+                        </>
+                    )
+                },
+                {
+                    id: 'among-us',
+                    className: 'among-us-page',
+                    background: <Stars />,
+                    content: (
+                        <>
+                            <h1>Among Us 🚀</h1>
+                            <p>
+                                Las risas y odios de la gente al jugar y descubrir quién era el impostor,
+                                las acusaciones locas, y las acusaciones reales que nos hicieron reír sin parar.
+                            </p>
+                            <p>
+                                "¡PERO YO NO SOY!" - Esa eras tú en cada partida que te acusaban 😂
+                            </p>
+                            <p>
+                                Siempre quedabamos solos en la nave que hasta nos caía mal, incluso cuando perdíamos.
+                                ¡Gracias por hacer cada partida inolvidable!
+                            </p>
+                        </>
+                    )
+                },
+                {
+                    id: 'cod',
+                    className: 'cod-page',
+                    background: <Explosions />,
+                    content: (
+                        <>
+                            <h1>Call of Duty Mobile 🎮</h1>
+                            <p>
+                                El juego que nos unió a tí y a mí por primera vez
+                            </p>
+                            <p>
+                                Las batallas intensas, los malparidos camperos, y esos momentos de
+                                "¿CÓMO NO SE MURIÓ?!" que nos hizo ODIAR y seguir jugando sin parar.
+                            </p>
+                            <p>
+                                Cada victoria de battle royale, cada derrota, cada "una más y ya"
+                                que se convirtió en 10 partidas más... Todo fue perfecto. Además... Los chismes del lobby jaja
+                            </p>
+                            <p>
+                                Esos momentos donde hablabamos más de lo que jugabamos, y nos reíamos de todo y nada al mismo tiempo.
+                            </p>
+                            <p>
+                                Gracias por ser mi dúo, por cubrir mi espalda,
+                                y por hacer que cada partida fuera más divertida.
+                            </p>
+
+                            <p>
+                                ¡Hasta llegamos a leyenda! 😎🥇 
+                           </p>
+                        </>
+                    )
+                },
+                {
+                    id: 'instagram',
+                    className: 'instagram-page',
+                    background: <ChatBubbles />,
+                    content: (
+                        <>
+                            <h1>Instagram 📱</h1>
+                            <p>
+                                Los chismes interminables, los memes que compartimos a las 3 AM,
+                                y esas conversaciones profundas sobre difamar a negros y burlarnos de todo XD
+                            </p>
+                            <p>
+                                "¡**NUEVO REEL**!" - el inicio de tantos más que venian de tí y de mí 😄
+                            </p>
+                            <p>
+                                Gracias por estar ahí para escucharme, para hacerme reír cuando más lo necesitaba,
+                                y por ser esa persona con la que puedo hablar de todo y estás ahí todo el tiempo.
+                            </p>
+                        </>
+                    )
+                },
+                {
+                    id: 'minecraft',
+                    className: 'minecraft-page',
+                    background: <MinecraftWorld />,
+                    content: (
+                        <>
+                            <h1>Minecraft ⛏️</h1>
+                            <p>
+                                Construir mundos juntos, explorar cuevas, y crear recuerdos
+                                que durarán para siempre.
+                            </p>
+
+                            <p>
+                                Todos esos mods de Terror que probamos, las risas, los sustos, la pelea dura con el 
+                                Warden y demás, fué una experiencia épica y de risa que siempre recordaré con cariño.
+                            </p>
+                            
+                            <p>
+                                Cada bloque colocado, cada creeper que nos asustó, cada construcción
+                                que hicimos juntos... Son recuerdos que guardaré siempre.
+                            </p>
+                            <p style={{fontSize: '1.5em', marginTop: '30px', fontWeight: '600'}}>
+                                Gracias por ser parte de mi aventura en este mundo pixelado y en la vida real.
+                                Espero que sigamos siendo grandes amigos por mucho tiempo más.
+                            </p>
+                            <p style={{fontSize: '1.6em', marginTop: '20px', fontWeight: '700'}}>
+                                ¡Te quiero un montón! ❤️
+                            </p>
+                            <div className="minecraft-photo">
+                                <img src="fotominecraft.png" alt="Foto Minecraft" />
+                            </div>
+                        </>
+                    )
+                }
+            ];
+
+            const goToNext = () => {
+                if (currentPage < pages.length - 1) {
+                    setCurrentPage(currentPage + 1);
+                }
+            };
+
+            const goToPrev = () => {
+                if (currentPage > 0) {
+                    setCurrentPage(currentPage - 1);
+                }
+            };
+
+            useEffect(() => {
+                const handleKeyPress = (e) => {
+                    if (e.key === 'ArrowRight') goToNext();
+                    if (e.key === 'ArrowLeft') goToPrev();
+                };
+
+                window.addEventListener('keydown', handleKeyPress);
+                return () => window.removeEventListener('keydown', handleKeyPress);
+            }, [currentPage]);
+
+            // show page indicator briefly on small screens when page changes
+            useEffect(() => {
+                if (window.innerWidth <= 768) {
+                    setShowIndicator(true);
+                    const t = setTimeout(() => setShowIndicator(false), 900);
+                    return () => clearTimeout(t);
+                } else {
+                    setShowIndicator(true);
+                }
+            }, [currentPage]);
+
+            return (
+                <>
+                    <div className={`page-indicator ${showIndicator ? 'show' : ''}`}>
+                        Página {currentPage + 1} de {pages.length}
+                    </div>
+                    
+                    <div className="book-container">
+                        <div className={`page ${pages[currentPage].className}`} key={currentPage}>
+                            {pages[currentPage].background}
+                            <div className="page-content">
+                                {pages[currentPage].content}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="navigation">
+                        <button 
+                            className="nav-button prev-button"
+                            onClick={goToPrev}
+                            disabled={currentPage === 0}
+                        >
+                            <span style={{position: 'relative', zIndex: 1}}>← Anterior</span>
+                        </button>
+                        <button 
+                            className="nav-button next-button"
+                            onClick={goToNext}
+                            disabled={currentPage === pages.length - 1}
+                        >
+                            <span style={{position: 'relative', zIndex: 1}}>Siguiente →</span>
+                        </button>
+                    </div>
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
